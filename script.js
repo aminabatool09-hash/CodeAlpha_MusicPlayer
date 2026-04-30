@@ -7,7 +7,7 @@ let songs = [
   {
     title: "Shararat",
     artist: "Dhurandar",
-    file: "shararat.mp3"
+    file: "sharart.mp3"
   },
   {
     title: "Kajra Re",
@@ -25,14 +25,14 @@ let progress = document.getElementById("progress");
 let volume = document.getElementById("volume");
 let playlist = document.getElementById("playlist");
 
-// Load song
+/* Load song */
 function loadSong(i){
   audio.src = songs[i].file;
   title.innerText = songs[i].title;
   artist.innerText = songs[i].artist;
 }
 
-// Play / Pause
+/* Play / Pause */
 function togglePlay(){
   if(audio.paused){
     audio.play();
@@ -41,43 +41,43 @@ function togglePlay(){
   }
 }
 
-// Next song
+/* Next */
 function nextSong(){
   index = (index + 1) % songs.length;
   loadSong(index);
   audio.play();
 }
 
-// Previous song
+/* Previous */
 function prevSong(){
   index = (index - 1 + songs.length) % songs.length;
   loadSong(index);
   audio.play();
 }
 
-// Progress update
+/* Progress */
 audio.addEventListener("timeupdate", () => {
   if(audio.duration){
     progress.value = (audio.currentTime / audio.duration) * 100;
   }
 });
 
-// Seek
+/* Seek */
 progress.addEventListener("input", () => {
   audio.currentTime = (progress.value / 100) * audio.duration;
 });
 
-// Volume
+/* Volume */
 volume.addEventListener("input", () => {
   audio.volume = volume.value;
 });
 
-// Autoplay next
+/* Auto next */
 audio.addEventListener("ended", () => {
   nextSong();
 });
 
-// Playlist
+/* Playlist */
 function loadPlaylist(){
   songs.forEach((song, i) => {
     let li = document.createElement("li");
@@ -91,7 +91,7 @@ function loadPlaylist(){
   });
 }
 
-// Init
+/* Init */
 window.onload = function(){
   loadSong(index);
   loadPlaylist();
